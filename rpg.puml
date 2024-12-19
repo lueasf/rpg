@@ -1,0 +1,112 @@
+@startuml
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class AggressiveStrategy
+class ArmoredDecorator {
+  - character: GameCharacter
+}
+class AttackCommand {
+  + target: GameCharacter
+  + attacker: GameCharacter
+}
+class BuffVisitor {
+  - random: Random
+}
+class Builder {
+  - players: Collection<GameCharacter>
+  - name: String
+}
+class ChangeStratCommand {
+  + character: GameCharacter
+  + strategy: Strategy
+}
+interface CharacterCreator << interface >>
+interface CharacterVisitor << interface >>
+class Command {
+  + game: Game
+}
+class DamageVisitor
+class DeathObserver
+class DefensiveStrategy
+class Game {
+  - teams: ArrayList<Team>
+}
+class GameCharacter {
+  - observers: ArrayList<Observer>
+  - strategy: Strategy
+  - name: String
+  - level: int
+  - health: int
+  - experiencePoints: int
+  - state: State
+}
+class GameConfiguration {
+  - config: GameConfiguration
+  - niveauDifficulte: int
+  - tailleMaxEquipe: int
+}
+class GameInvoker {
+  ~ commands: ArrayList<Command>
+}
+class HealVisitor
+class Healer {
+  - wisdom: int
+}
+class HealerCreator
+class InvicibleDecorator {
+  - character: GameCharacter
+}
+class LevelUpObserver
+class NeutralStrategy
+interface Observer << interface >>
+interface PrototypeTeam << interface >>
+interface Strategy << interface >>
+interface Subject << interface >>
+class Team {
+  - name: String
+  - players: Collection<GameCharacter>
+}
+class Warrior {
+  - strength: int
+}
+class WarriorCreator
+class Wizard {
+  - intelligence: int
+}
+class WizardCreator
+
+AggressiveStrategy  -[#008200,dashed]-^  Strategy
+ArmoredDecorator    -[#000082,plain]-^  GameCharacter
+ArmoredDecorator   "1" *-[#595959,plain]-> "character\n1" GameCharacter
+AttackCommand       -[#000082,plain]-^  Command
+AttackCommand      "1" *-[#595959,plain]-> "attacker\n1" GameCharacter
+BuffVisitor         -[#008200,dashed]-^  CharacterVisitor
+Builder             -[#595959,dashed]->  Team               : "«create»"
+ChangeStratCommand  -[#000082,plain]-^  Command
+ChangeStratCommand "1" *-[#595959,plain]-> "character\n1" GameCharacter
+ChangeStratCommand "1" *-[#595959,plain]-> "strategy\n1" Strategy
+Command            "1" *-[#595959,plain]-> "game\n1" Game
+DamageVisitor       -[#008200,dashed]-^  CharacterVisitor
+DeathObserver       -[#008200,dashed]-^  Observer
+DefensiveStrategy   -[#008200,dashed]-^  Strategy
+Game                -[#595959,dashed]->  Team               : "«create»"
+GameCharacter      "1" *-[#595959,plain]-> "strategy\n1" Strategy
+GameCharacter       -[#008200,dashed]-^  Subject
+HealVisitor         -[#008200,dashed]-^  CharacterVisitor
+Healer              -[#000082,plain]-^  GameCharacter
+HealerCreator       -[#008200,dashed]-^  CharacterCreator
+HealerCreator       -[#595959,dashed]->  Healer             : "«create»"
+InvicibleDecorator  -[#000082,plain]-^  GameCharacter
+InvicibleDecorator "1" *-[#595959,plain]-> "character\n1" GameCharacter
+LevelUpObserver     -[#008200,dashed]-^  Observer
+NeutralStrategy     -[#008200,dashed]-^  Strategy
+Team                -[#008200,dashed]-^  PrototypeTeam
+Warrior             -[#000082,plain]-^  GameCharacter
+WarriorCreator      -[#008200,dashed]-^  CharacterCreator
+WarriorCreator      -[#595959,dashed]->  Warrior            : "«create»"
+Wizard              -[#000082,plain]-^  GameCharacter
+WizardCreator       -[#008200,dashed]-^  CharacterCreator
+WizardCreator       -[#595959,dashed]->  Wizard             : "«create»"
+@enduml
