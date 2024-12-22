@@ -56,7 +56,27 @@ Partie 5:
 
 - _State_ : Le D.P State est utilisé pour gérer les différents états du joueur. On a une classe abstraite State.java qui définit différentes méthodes.Cette classe a différente classes filles qui implémentent ces méthodes selon l'état du joueur. Par exemple, le joueur peut être dans un état normal, apeuré, mort ou encore en cheat mode. Une fois rentré dans un état, la fonction OnExitState() est appelé pour l'état que le joueur quitte et la fonction OnEnterState() est appelé pour l'état dans lequel entre le joueur. Quand un joueur reçoit des degats, selon son état de santé, il peut changer d'état. Par exemple, si le joueur a en dessous de 15 points de vie, il passe en état apeuré. Si le joueur a 0 points de vie, il passe en état de mort. Un easter egg est caché : si le joueur à exactement 1 point de vie, il passe en cheatmode et garde ce mode pendant 5 tours, grace a la fonction onUpdate(). Enfin, il y a la fonction onAttack de chaque état qui permet de modifier les dégats infligés par le joueur selon son état. Par exemple, dans giveDamage(), si le joueur est en état cheatmode, alors les degats infligés sont multipliés par 3.
 
-## Tests
+Rappel :
+Les concepts **SOLID** & **GRASP** désignent :
+- Single Responsability → 1 responsabilité par classe
+- Open-Closed → ouvert à l'héritage, fermé à la modification
+- Liskov-Substitution → la classe enfant doit pouvoir remplacer la mère sans casser le progr.
+- Ségregation des Interfaces → pas d'obligation d'implémenter des interfaces.
+- Inversion des dépendences →
+
+_General Responsability Assignement Software Patterns_ :
+- Creator 	une classe responsable d'en créer d'autres
+- Information Expert	  une responsabilité doit être attribué à la classe qui possède les informations nécéssaires pour l'assumer
+- Low coupling		les responsabilités doivent être assignées pour minimiser les dependances entre les classes
+- High Cohesion		cohérence entre les méthodes
+- Controller	    une classe qui coordonne les events systm en déléguant
+- Polymorphism		
+- Pure fabrication
+- Indirection
+- Protected Variations
+
+
+# Tests
 Les tests sont réalisés avec JUnit et Maven. Pour lancer les tests, il suffit de lancer la commande suivante : `mvn test`. (avec le binaire accessible dans le PATH).
 
 - Le fichier **TeamTest.java** teste la creation d'équipe, l'insertion de personnages dans une équipe, la suppression de personnages dans une équipe, la clonage d'une équipe et enfin vérifie si une équipe contient un personnage. **(9/9 tests passés)**
